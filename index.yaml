@@ -3,6 +3,16 @@ entries:
   undeadapps:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-05-27T15:32:42.718505797Z"
+    description: A Helm chart for Kubernetes
+    digest: f5152377b34228ca21523ff7d1e798175f81a130d3b10543c83f7b796f79d401
+    name: undeadapps
+    type: application
+    urls:
+    - https://github.com/undeadops/undeadapps/releases/download/undeadapps-0.6.0/undeadapps-0.6.0.tgz
+    version: 0.6.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-05-27T15:23:31.497246255Z"
     description: A Helm chart for Kubernetes
     digest: 60f73a9fea8cc7f50ed351021c22edd39146eb92ffbf76123183b4dd57c4e1da
@@ -51,4 +61,4 @@ entries:
     urls:
     - https://github.com/undeadops/undeadapps/releases/download/undeadapps-0.1.0/undeadapps-0.1.0.tgz
     version: 0.1.0
-generated: "2023-05-27T15:23:31.497263755Z"
+generated: "2023-05-27T15:32:42.718709309Z"
