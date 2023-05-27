@@ -84,6 +84,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           gh-token: ${{ secrets.GITHUB_TOKEN }}
-          gh-repo-owner: mycompany
+          gh-repo-owner: undeadops
           chart-path: ./charts/undeadapps
 
