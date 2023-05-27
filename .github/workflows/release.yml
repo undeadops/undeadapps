@@ -87,6 +87,6 @@ jobs:
           version=${{ steps.bump-version-tag.outputs.new_tag }}
           echo ${{ env.GITHUB_TOKEN }} | helm registry login ${{ env.GCR_IMAGE }} --username undeadops --password-stdin
           helm package charts/undeadapps --version $version
-          echo pushing $(basename charts/undeadapps)-$version.tgz to oci://$GCR_IMAGE:$version
-          helm push $(basename charts/undeadapps)-$version.tgz oci://$GCR_IMAGE:$version
+          echo pushing $(basename charts/undeadapps)-$version.tgz to oci://$GCR_IMAGE/undeadapps:$version
+          helm push $(basename charts/undeadapps)-$version.tgz oci://$GCR_IMAGE/undeadapps:$version
         shell: bash
