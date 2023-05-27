@@ -52,7 +52,7 @@ spec:
           - name: svc
             containerPort: {{ .Values.service.port }}
           {{- end }}
-          {{- if .Values.livenessProbe.enabled }}
+          {{- if .Values.livenessProbe }}
           livenessProbe:
             initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
@@ -66,7 +66,7 @@ spec:
               httpHeaders: {{- toYaml .Values.livenessProbeHeaders | nindent 16 }}
               {{- end }}
           {{- end }}
-          {{- if .Values.readinessProbe.enabled }}
+          {{- if .Values.readinessProbe }}
           readinessProbe:
             initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
