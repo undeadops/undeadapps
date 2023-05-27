@@ -63,10 +63,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_BRANCHES: main
 
+      - name: Set up yq
+        uses: frenck/action-setup-yq@v1.0.1
+
+      - name: Update Chart versions
+        run: |
+          yq -i '.version="${{ steps.bump-version-tag.outputs.new_tag }}"' 'charts/undeadapps/Chart.yaml'
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.5.0
         with:
           charts_dir: charts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
