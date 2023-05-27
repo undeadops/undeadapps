@@ -41,6 +41,13 @@ jobs:
         run: |
           yq -i '.version="${{ steps.bump-version-tag.outputs.new_tag }}"' 'charts/undeadapps/Chart.yaml'
 
+      - name: Commit Updated Chart.yaml
+        uses: test-room-7/action-update-file@v1
+        with:
+          file-path: charts/undeadapps/Chart.yaml
+          commit-msg: 'ci(Chart.yaml): update version for chart'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Package and Push a Helm Chart to GHCR
         uses: explorium-ai/package-helm-ghcr-action@main
         env:

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "undeadapps.fullname" . }}-test-connection"
+  name: "{{ include "undeadapps.name" . }}-test-connection"
   labels:
     {{- include "undeadapps.labels" . | nindent 4 }}
   annotations:
@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "undeadapps.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "undeadapps.name" . }}:{{ .Values.service.port }}']
   restartPolicy: Never
