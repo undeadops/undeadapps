@@ -81,11 +81,11 @@ jobs:
       - name: Helm Chart
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GCR_IMAGE: "ghcr.io/undeadops/undeadapps"
+          GCR_IMAGE: "ghcr.io/undeadops"
           HELM_EXPERIMENTAL_OCI: "1"
         run : |
           version=${{ steps.bump-version-tag.outputs.new_tag }}
-          echo ${{ env.GITHUB_TOKEN }} | helm registry login ${{ env.GCR_IMAGE }} --username ${{ env.GITHUB_REPOSITORY_OWNER }} --password-stdin
+          echo ${{ env.GITHUB_TOKEN }} | helm registry login ${{ env.GCR_IMAGE }} --username undeadops --password-stdin
           helm package charts/undeadapps --version $version
           echo pushing $(basename charts/undeadapps)-$version.tgz to oci://$GCR_IMAGE:$version
           helm push $(basename charts/undeadapps)-$version.tgz oci://$GCR_IMAGE:$version
