@@ -78,3 +78,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Helm Chart
+        env:
+          GCR_IMAGE: ghcr.io/${{ inputs.gh-repo-owner }}
+          HELM_EXPERIMENTAL_OCI: "1"
+        run : |
+          version=${{ steps.bump-version-tag.outputs.new_tag }}
+          helm package charts/undeadapps --version $version
+          echo pushing $(basename ${{ inputs.chart-path }})-$version.tgz to oci://$GCR_IMAGE
+          helm push $(basename ${{ inputs.chart-path }})-$version.tgz oci://$GCR_IMAGE
+        shell: bash
