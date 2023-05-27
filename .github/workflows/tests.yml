@@ -43,3 +43,10 @@ jobs:
       - name: Run chart-testing (install)
         if: steps.list-changed.outputs.changed == 'true'
         run: ct install --target-branch ${{ github.event.repository.default_branch }}
+
+      - name: Test Helm Chart
+        uses: igabaydulin/helm-check-action@0.1.4
+        env:
+          CHART_LOCATION: ./charts/undeadapps
+          CHART_VALUES: ./tests/helm-test.yaml
+

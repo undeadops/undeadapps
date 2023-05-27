@@ -1,0 +1,21 @@
+---
+name: webby
+
+replicaCount: 1
+
+image:
+  repository: ghcr.io/undeadops/webby
+  tag: "dev"
+
+env:
+  PORT: 3000
+
+service:
+  type: ClusterIP
+  port: 8080
+  protocol: TCP
+
+serviceAccount:
+  create: true
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::123456789012:role/webby-svc
