@@ -44,6 +44,8 @@ jobs:
 
       - name: Package and Push a Helm Chart to GHCR
         uses: explorium-ai/package-helm-ghcr-action@main
+        permissions:
+          packages: write
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
