@@ -85,6 +85,6 @@ jobs:
         run : |
           version=${{ steps.bump-version-tag.outputs.new_tag }}
           helm package charts/undeadapps --version $version
-          echo pushing $(basename ${{ inputs.chart-path }})-$version.tgz to oci://$GCR_IMAGE
-          helm push $(basename ${{ inputs.chart-path }})-$version.tgz oci://$GCR_IMAGE
+          echo pushing $(basename charts/undeadapps)-$version.tgz to oci://$GCR_IMAGE
+          helm push $(basename charts/undeadapps)-$version.tgz oci://$GCR_IMAGE
         shell: bash
