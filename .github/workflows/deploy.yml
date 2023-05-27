@@ -1,0 +1,35 @@
+on:
+  push:
+    branches:
+      - main
+
+env:
+  HELM_EXPERIMENTAL_OCI: 1
+  HELM_VERSION_TO_INSTALL: 3.15.0
+  GHCR_IMAGE: ghcr.io/${{ github.repository_owner }}/undeadaaps
+
+jobs:
+  build:
+    name: publish gcr
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - uses: actions/checkout@v3
+        name: checkout repo
+
+      - name: install helm
+        uses: Azure/setup-helm@v1
+        with:
+          # Version of helm
+          version: ${{ env.HELM_VERSION_TO_INSTALL }} # default is latest
+
+      - name: Chart | Push
+        uses: appany/helm-oci-chart-releaser@v0.3.0
+        with:
+          name: undeadapps
+          repository: ghcr.io/undeadops
+          tag: 0.1.0
+          path: undeadapps/charts
+          registry: ghcr.io
+          registry_username: ${{ secrets.REGISTRY_USERNAME }}
+          registry_password: ${{ secrets.REGISTRY_PASSWORD }}
