@@ -30,13 +30,13 @@ env:
 
 # Kubernetes Secrets to load as environment variables
 # envFromSecrets:
-  #  - dburi
+#   - dburi
 
 # External Secrets to pull from AWS Secrets Manager
 # Name here, should match whats used in envFromSecrets
 # externalSecrets:
-  #- secretName: dburi
-  #  remoteRefKey: env/appname/dburi
+#   - secretName: dburi
+#     remoteRefKey: env/appname/dburi
 
 podAnnotations: {}
 
