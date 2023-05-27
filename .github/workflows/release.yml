@@ -80,7 +80,7 @@ jobs:
 
       - name: Helm Chart
         env:
-          GCR_IMAGE: ghcr.io/${{ inputs.gh-repo-owner }}
+          GCR_IMAGE: ghcr.io/undeadops/undeadapps
           HELM_EXPERIMENTAL_OCI: "1"
         run : |
           version=${{ steps.bump-version-tag.outputs.new_tag }}
