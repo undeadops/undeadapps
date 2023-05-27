@@ -81,7 +81,7 @@ jobs:
       - name: Helm Chart
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GCR_IMAGE: "ghcr.io/${{ env.GITHUB_REPOSITORY }}
+          GCR_IMAGE: "ghcr.io/undeadops/undeadapps"
           HELM_EXPERIMENTAL_OCI: "1"
         run : |
           version=${{ steps.bump-version-tag.outputs.new_tag }}
