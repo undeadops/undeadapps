@@ -21,13 +21,13 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }} # only needed if version is 'latest'
         id: install
 
-      - name: Chart | Push
-        uses: appany/helm-oci-chart-releaser@v0.3.0
+      - name: Push Helm chart to OCI compatible registry (Github)
+        uses: bsord/helm-push@4.2.0
         with:
-          name: undeadapps
-          repository: undeadops
-          tag: 0.1.0
-          path: undeadapps/charts
-          registry: ghcr.io
-          registry_username: ${{ secrets.REGISTRY_USERNAME }}
-          registry_password: ${{ secrets.REGISTRY_PASSWORD }}
+         useOCIRegistry: true
+         registry-url:  oci://ghcr.io/${{ github.repository }}
+         username: undeadops
+         access-token: ${{ secrets.REGISTRY_ACCESS_TOKEN }}
+         force: true
+         chart-folder: undeadapps/charts
+
