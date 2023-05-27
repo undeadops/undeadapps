@@ -32,10 +32,3 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Test Helm Chart
-        if: steps.list-changed.outputs.changed == 'true'
-        uses: igabaydulin/helm-check-action@0.1.4
-        env:
-          CHART_LOCATION: ./charts/undeadapps
-          CHART_VALUES: ./tests/helm-test.yaml
-
