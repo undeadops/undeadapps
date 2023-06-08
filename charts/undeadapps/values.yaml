@@ -1,6 +1,9 @@
 # Default values for undeadapps.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+#
+# Namespace to deploy app into.  required
+#namespace: nginx
 
 replicaCount: 1
 
