@@ -1,4 +1,4 @@
-{{- if .Values.test-connection }}
+{{- if .Values.test-connection -}}
 apiVersion: v1
 kind: Pod
 metadata:
