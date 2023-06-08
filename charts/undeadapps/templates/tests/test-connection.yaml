@@ -1,3 +1,4 @@
+{{- if .Values.test-connection }}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -16,3 +17,4 @@ spec:
       command: ['wget']
       args: ['{{ include "undeadapps.name" . }}:{{ .Values.service.port }}']
   restartPolicy: Never
+{{- end }}
