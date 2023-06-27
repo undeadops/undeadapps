@@ -2,15 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "undeadapps.name" . }}
-  {{- if .Values.namespace }}
-  namespace: {{ .Values.namespace }}
-  {{- end }}
   labels:
     {{- include "undeadapps.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  revisionHistoryLimit: 2
   selector:
     matchLabels:
       {{- include "undeadapps.selectorLabels" . | nindent 6 }}
@@ -23,7 +21,7 @@ spec:
       labels:
         {{- include "undeadapps.selectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.imagePullSecrets }}
+      {{- with .Values.imagePUllSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -35,7 +33,7 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           {{- if .Values.envFromSecrets }}
           envFrom:
           {{- range $key, $val := .Values.envFromSecrets }}
@@ -50,12 +48,12 @@ spec:
             value: {{ $val | quote }}
           {{- end }}
           {{- end }}
-          {{- if .Values.service }}
+          {{- if .Values.service.port }}
           ports:
           - name: svc
             containerPort: {{ .Values.service.port }}
           {{- end }}
-          {{- if .Values.livenessProbe }}
+          {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
@@ -69,7 +67,7 @@ spec:
               httpHeaders: {{- toYaml .Values.livenessProbeHeaders | nindent 16 }}
               {{- end }}
           {{- end }}
-          {{- if .Values.readinessProbe }}
+          {{- if .Values.readinessProbe.enabled }}
           readinessProbe:
             initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.readinessProbe.periodSeconds }}

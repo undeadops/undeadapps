@@ -1,0 +1,35 @@
+{{- if .Values.iamRole.create -}}
+apiVersion: iam.services.k8s.aws/v1alpha1
+kind: Role
+metadata:
+  name:  {{ .Values.iamRole.name }}
+spec:
+  name: {{ .Values.iamRole.name }}
+  description: {{ .Values.iamRole.description }}
+  maxSessionDuration: {{ default 3600 .Values.iamRole.sessionDuration }}
+  assumeRolePolicyDocument: >
+    {
+      "Version":"2012-10-17",
+      "Statement": [{
+        "Effect":"Allow",
+        "Principal": {
+          "Federated": [
+            {{ .Values.iamRole.oidcArn }}
+          ]
+        },
+        "Action": ["sts:AssumeRoleWithWebIdentity"]
+        "Condition": {
+            "StringEquals": {
+                "{{ .Values.iamRole.oidcURL }}:sub": "system:serviceaccount:{{ .Values.namespace }}:{{ include "undeadapps.serviceAccountName" . }}"
+            }
+        }
+      }]
+    }
+    {{- if .Values.iamRole.tags }}
+    tags:
+    {{- range $key, $val := .Values.iamRole.tags }}
+    - key: {{ $key }}
+      value: {{ $val | quote }}
+    {{- end }}
+    {{- end }}
+{{- end -}}

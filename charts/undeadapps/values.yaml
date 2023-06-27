@@ -2,13 +2,15 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 #
+# Name is required for this helmchart
+name: foo
 # Namespace to deploy app into.  required
-#namespace: nginx
+namespace: foobar
 
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: foobar
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -25,6 +27,17 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
+
+iamRole:
+  create: true
+  name: foobarPatron
+  description: {}
+  sessionDuration: ""
+  tags:
+    environment: development
+  policy: {}
+  oidcArn: "arn:aws:iam::303391922817:oidc-provider/oidc.eks.us-east-2.amazonaws.com/id/6B76A5FB41BB3CD0B3836D99595069F8"
+  oidcURL: "oidc.eks.us-east-2.amazonaws.com/id/6B76A5FB41BB3CD0B3836D99595069F8"
 
 # environment variables to load in. Nonsecrets
 env:
@@ -43,10 +56,12 @@ env:
 
 podAnnotations: {}
 
-podSecurityContext: {}
+podSecurityContext:
+  {}
   # fsGroup: 2000
 
-securityContext: {}
+securityContext:
+  {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -61,7 +76,8 @@ service:
 ingress:
   enabled: false
   className: ""
-  annotations: {}
+  annotations:
+    {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
@@ -74,7 +90,42 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-resources: {}
+## pod options for liveness and readiness probes
+## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
+livenessProbe: {}
+#  enabled: true
+#  initialDelaySeconds: 120
+#  path: /healthz
+#  port: 8080
+#  periodSeconds: 10
+#  timeoutSeconds: 5
+#  failureThreshold: 6
+#  successThreshold: 1
+
+readinessProbe: {}
+#  enabled: true
+#  initialDelaySeconds: 30
+#  periodSeconds: 10
+#  timeoutSeconds: 5
+#  failureThreshold: 6
+#  successThreshold: 1
+
+## If using an HTTPS-terminating load-balancer, the probes may need to behave
+## like the balancer to prevent HTTP 302 responses. According to the Kubernetes
+## docs, 302 should be considered "successful", but this issue on GitHub
+## (https://github.com/kubernetes/kubernetes/issues/47893) shows that it isn't.
+##
+# livenessProbeHeaders:
+# - name: X-Forwarded-Proto
+#   value: https
+# readinessProbeHeaders:
+# - name: X-Forwarded-Proto
+#   value: https
+livenessProbeHeaders: {}
+readinessProbeHeaders: {}
+
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -98,3 +149,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+s3buckets:
+  - name: ""
+    encrypted: true
