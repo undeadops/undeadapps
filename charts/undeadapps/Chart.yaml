@@ -2,7 +2,7 @@ apiVersion: v2
 name: undeadapps
 description: An Opinionated Helm chart for Application Deployment on Kubernetes in AWS
 type: application
-version: 0.26.0
+version: 0.27.0
 maintainers:
   - name: undeadops
     email: mitch@undeadops.xyz
