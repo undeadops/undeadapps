@@ -38,4 +38,22 @@ spec:
     value: {{ $val | quote }}
   {{- end }}
   {{- end }}
+---
+apiVersion: services.k8s.aws/v1alpha1
+kind: FieldExport
+metadata:
+  name: iamroleexport-{{ include "undeadapps.name" . }}-{{ .Values.s3bucket.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  to:
+    name: {{ include "undeadapps.serviceAccountName" . }}
+    kind: ServiceAccount
+    namespace: {{ .Values.namespace }}
+    key: metadata.annotation.eks\\.amazonaws\\.com/role-arn
+  from:
+    path: ".status.ackResourceMetadata.arn"
+    resource:
+      group: iam.services.k8s.aws
+      kind: Role
+      name: {{ .Values.iamRole.name }}
 {{- end -}}
