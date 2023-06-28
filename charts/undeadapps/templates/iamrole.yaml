@@ -29,7 +29,7 @@ spec:
   {{- if .Values.iamPolicy }}
   policyRefs:
     - from:
-      name: {{ .Values.iamRole.name }}
+        name: {{ .Values.iamRole.name }}
   {{- end -}}
   {{- if .Values.iamRole.tags }}
   tags:
