@@ -39,7 +39,7 @@ spec:
           imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           envFrom:
           - secretRef:
-            name: {{ include "undeadapps.name" . }}Env
+            name: {{ include "undeadapps.name" . }}-env
             optional: true
           {{- if .Values.envFromSecrets }}
           {{- range $key, $val := .Values.envFromSecrets }}

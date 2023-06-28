@@ -22,7 +22,7 @@ metadata:
   namespace: {{ .Values.namespace }}
 spec:
   to:
-    name: {{ include "undeadapps.name" . }}Env
+    name: {{ include "undeadapps.name" . }}-env
     kind: secret
     namespace: {{ .Values.namespace }}
     key: S3_BUCKET_LOCATION
