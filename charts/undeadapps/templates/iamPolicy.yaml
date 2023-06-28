@@ -1,0 +1,21 @@
+{{- if .Values.iamRole.create -}}
+{{- if .Values.iamPolicy -}}
+apiVersion: iam.services.k8s.aws/v1alpha1
+kind: Policy
+metadata:
+  name:  {{ .Values.iamRole.name }}
+spec:
+  description: {{ .Values.iamPolicy.description }}
+  name: {{ .Values.iamRole.name }}
+  path: {{ .Values.iamPolicy.path }}
+  policyDocument: |
+    {{- .Values.iamPolicy.policy | nindent 4 }}
+  {{- if .Values.iamRole.tags }}
+  tags:
+  {{- range $key, $val := .Values.iamRole.tags }}
+  - key: {{ $key }}
+    value: {{ $val | quote }}
+  {{- end }}
+  {{- end }}
+{{- end -}} # end iamPolicy
+{{- end -}} # end iamRole.create

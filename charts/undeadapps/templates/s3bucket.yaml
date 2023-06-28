@@ -1,0 +1,35 @@
+{{- if .Values.s3bucket.name -}}
+apiVersion: s3.services.k8s.aws/v1alpha1
+kind: Bucket
+metadata:
+  name: {{ .Values.s3bucket.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  name: {{ .Values.s3bucket.name }}
+  publicAccessBlock:
+    blockPublicACLs: true
+    blockPublicPolicy: true
+    ignorePublicACLs: true
+    restrictPublicBuckets: true
+  encryption:
+    rules:
+      bucketKeyEnabled: true
+---
+apiVersion: services.k8s.aws/v1alpha1
+kind: FieldExport
+metadata:
+  name: S3BucketExport
+  namespace: {{ .Values.s3bucket.name }}
+spec:
+  to:
+    name: {{ include "undeadapps.name" . }}Env
+    kind: secret
+    namespace: {{ .Values.namespace }}
+    key: S3_BUCKET_LOCATION
+  from:
+    path: ".status.location"
+    resource:
+      group: s3.services.k8s.aws
+      kind: Bucket
+      name: {{ .Values.s3bucket.name }}
+{{- end -}}

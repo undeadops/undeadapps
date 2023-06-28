@@ -31,13 +31,17 @@ serviceAccount:
 iamRole:
   create: true
   name: foobarPatron
-  description: {}
-  sessionDuration: ""
+  description: ""
+  sessionDuration: "" # default: 3600
   tags:
     environment: development
-  policy: {}
-  oidcArn: "arn:aws:iam::303391922817:oidc-provider/oidc.eks.us-east-2.amazonaws.com/id/6B76A5FB41BB3CD0B3836D99595069F8"
-  oidcURL: "oidc.eks.us-east-2.amazonaws.com/id/6B76A5FB41BB3CD0B3836D99595069F8"
+  oidcArn: "" # eg: "arn:aws:iam::303391922817:oidc-provider/oidc.eks.us-east-2.amazonaws.com/id/6B76A5FB41BB3CD0B3836D99595069F8"
+  oidcURL: "" # eg: "oidc.eks.us-east-2.amazonaws.com/id/6B76A5FB41BB3CD0B3836D99595069F8"
+
+iamPolicy:
+  path: "/"
+  description: ""
+  policy: ""
 
 # environment variables to load in. Nonsecrets
 env:
@@ -45,11 +49,13 @@ env:
   PORT: 5000
 
 # Kubernetes Secrets to load as environment variables
+envFromSecrets: []
 # envFromSecrets:
 #   - dburi
 
 # External Secrets to pull from AWS Secrets Manager
 # Name here, should match whats used in envFromSecrets
+externalSecrets: {}
 # externalSecrets:
 #   - secretName: dburi
 #     remoteRefKey: env/appname/dburi
@@ -150,6 +156,6 @@ tolerations: []
 
 affinity: {}
 
-s3buckets:
-  - name: ""
-    encrypted: true
+s3bucket:
+  name: ""
+  encrypted: true
