@@ -4,6 +4,7 @@ apiVersion: iam.services.k8s.aws/v1alpha1
 kind: Policy
 metadata:
   name:  {{ .Values.iamRole.name }}
+  namespace: {{ .Values.namespace }}
 spec:
   description: {{ .Values.iamPolicy.description }}
   name: {{ .Values.iamRole.name }}

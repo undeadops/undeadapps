@@ -3,6 +3,7 @@ apiVersion: iam.services.k8s.aws/v1alpha1
 kind: Role
 metadata:
   name:  {{ .Values.iamRole.name }}
+  namespace: {{ .Values.namespace }}
 spec:
   name: {{ .Values.iamRole.name }}
   description: {{ .Values.iamRole.description }}

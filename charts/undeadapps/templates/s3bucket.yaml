@@ -18,8 +18,8 @@ spec:
 apiVersion: services.k8s.aws/v1alpha1
 kind: FieldExport
 metadata:
-  name: S3BucketExport
-  namespace: {{ .Values.s3bucket.name }}
+  name: S3BucketExport-{{ include "undeadapps.name" . }}-{{ .Values.s3bucket.name }}
+  namespace: {{ .Values.namespace }}
 spec:
   to:
     name: {{ include "undeadapps.name" . }}Env
