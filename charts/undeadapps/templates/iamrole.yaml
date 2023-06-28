@@ -28,7 +28,7 @@ spec:
     }
   {{- if .Values.iamPolicy }}
   policyRefs:
-    from:
+    - from:
       name: {{ .Values.iamRole.name }}
   {{- end -}}
   {{- if .Values.iamRole.tags }}
