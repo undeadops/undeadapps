@@ -13,7 +13,9 @@ spec:
     restrictPublicBuckets: true
   encryption:
     rules:
-      bucketKeyEnabled: true
+      - bucketKeyEnabled: true
+        applyServerSideEncryptionByDefault:
+          sseAlgorithm: AES256
 ---
 apiVersion: services.k8s.aws/v1alpha1
 kind: FieldExport
