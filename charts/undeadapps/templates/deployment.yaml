@@ -40,7 +40,6 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "undeadapps.name" . }}-env
-                optional: true
           {{- if .Values.envFromSecrets }}
           {{- range $key, $val := .Values.envFromSecrets }}
           - secretRef:
