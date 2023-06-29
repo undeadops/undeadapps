@@ -91,7 +91,7 @@ ingress:
     - host: foobar.local
       paths:
         - path: /
-          pathType: ImplementationSpecific
+          pathType: Prefix
 
 livenessProbe:
   enabled: true
