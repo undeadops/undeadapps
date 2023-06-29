@@ -19,6 +19,11 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+extraArgs: {}
+#   argument1: value1
+#   argument2: value2
+#   booleanArg1:
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true

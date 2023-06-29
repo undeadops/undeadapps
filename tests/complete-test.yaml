@@ -17,6 +17,9 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+extraArgs:
+  bucket: foobar
+
 serviceAccount:
   create: true
   name: foobarSA
