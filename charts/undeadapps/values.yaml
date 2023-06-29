@@ -39,8 +39,8 @@ iamRole:
   sessionDuration: "" # default: 3600
   tags:
     environment: development
-  oidcArn: "" # eg: "arn:aws:iam::303391922817:oidc-provider/oidc.eks.us-east-2.amazonaws.com/id/6B76A5FB41BB3CD0B3836D99595069F8"
-  oidcURL: "" # eg: "oidc.eks.us-east-2.amazonaws.com/id/6B76A5FB41BB3CD0B3836D99595069F8"
+  oidcArn: "" # eg: "arn:aws:iam::123456789012343:oidc-provider/oidc.eks.us-east-2.amazonaws.com/id/BBBBBBBBBBBBB836D99595069F8"
+  oidcURL: "" # eg: "oidc.eks.us-east-2.amazonaws.com/id/BBBBBBBBBBBBB836D99595069F8"
 
 iamPolicy:
   path: "/"
