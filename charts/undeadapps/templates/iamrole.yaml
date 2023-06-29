@@ -16,7 +16,7 @@ spec:
                 "Sid": "",
                 "Effect": "Allow",
                 "Principal": {
-                    "Federated": {{ .Values.iamRole.oidcArn }}
+                    "Federated": {{ .Values.iamRole.oidcArn | quote }}
                 },
                 "Action": "sts:AssumeRoleWithWebIdentity",
                 "Condition": {
